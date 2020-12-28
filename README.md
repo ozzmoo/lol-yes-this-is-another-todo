@@ -1,4 +1,4 @@
-# another_todo
+# Yes, this is another TODO app C:
 
 ## Project setup
 ```
