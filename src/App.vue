@@ -1,60 +1,40 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
     <v-main>
-      <HelloWorld/>
+      <v-container>
+        <div class="tasks" v-for="task in allTasks" :key="task.id">
+          <Task :task="task" />
+        </div>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
+import { mapGetters } from "vuex";
+import Task from "./components/Task";
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
-    HelloWorld,
+    Task,
   },
 
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
+  computed: mapGetters(["allTasks"]),
 };
 </script>
+
+<style lang="scss">
+@import "./assets/Fonts/AdobeClean-Light/style.css";
+@import "./assets/Fonts/AdobeClean-Bold/style.css";
+@import "./assets/Fonts/AdobeClean-Regular/style.css";
+* {
+  font-family: "Adobe Clean";
+  color: #6a675d;
+}
+
+body {
+  background-color: #fafafa;
+}
+</style>
