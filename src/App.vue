@@ -1,45 +1,21 @@
 <template>
   <v-app>
-    <v-main>
-      <v-container>
-        <v-btn class="add-new" @click="openAddFormOverlay">Add</v-btn>
-        <NewTask />
-        <div class="tasks" v-for="task in allTasks" :key="task.id">
-          <Task :task="task" />
-        </div>
-      </v-container>
-    </v-main>
+    <v-container>
+      <div id="nav"></div>
+      <router-view />
+    </v-container>
   </v-app>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-
-import Task from "./components/Task";
-import NewTask from "./components/NewTask";
-
 export default {
   name: "App",
 
-  components: {
-    Task,
-    NewTask,
-  },
+  components: {},
 
-  data: () => ({}),
-  methods: {
-    ...mapMutations(["openAddForm", "updateTasks"]),
-    openAddFormOverlay() {
-      this.openAddForm();
-    },
-    updateTasksFromLocale() {
-      this.updateTasks();
-    },
-  },
-  computed: mapGetters(["allTasks"]),
-  mounted() {
-    this.updateTasksFromLocale();
-  },
+  data: () => ({
+    donetasks: false,
+  }),
 };
 </script>
 

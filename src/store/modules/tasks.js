@@ -1,12 +1,6 @@
 export default {
   state: {
-    tasks: [{
-      id: 0,
-      title: "Simple task title",
-      text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt earum mollitia magni adipisci sed deleniti!",
-      done: false,
-      tags: ['work', 'study', 'family']
-    }, ],
+    tasks: [],
     tags: {
       'work': {},
       'study': {},
@@ -17,9 +11,11 @@ export default {
   mutations: {
     /* Get tasks from localestorage on load app */
     updateTasks(state) {
-      for (let i = 0; i < localStorage.length - 1; i++) {
-        let key = localStorage.key(i);
-        state.tasks.unshift(JSON.parse(localStorage.getItem(key)))
+      let keys = Object.keys(localStorage);
+      for (let key of keys) {
+        if (!isNaN(key)) {
+          state.tasks.unshift(JSON.parse(localStorage.getItem(key)))
+        }
       }
     },
     /* Update "done" status of task */
@@ -32,11 +28,22 @@ export default {
         }
       }
       state.tasks[indexOfTask].done = !state.tasks[indexOfTask].done
+
+      localStorage[task.id] = JSON.stringify(task)
     },
     /* Add new task to localestorage and array tasks  */
     addNewTask(state, newTask) {
       localStorage[newTask.id] = JSON.stringify(newTask)
       state.tasks.unshift(newTask)
+    },
+    deleteTask(state, task) {
+      let ind = state.tasks.find((el, ind) => {
+        if (el.id == task.id) {
+          return ind
+        }
+      })
+      state.tasks.splice(ind, 1)
+      localStorage.removeItem(task.id)
     },
     /* Show "Add new task form" */
     openAddForm(state) {
@@ -54,6 +61,11 @@ export default {
     /* Get all tasks */
     allTasks(state) {
       return state.tasks
+    },
+    doneTasks(state) {
+      return state.tasks.filter(task => {
+        return !task.done
+      })
     },
     /* Status of "Add new task" form */
     isAddOpened(state) {

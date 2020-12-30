@@ -1,12 +1,17 @@
 <template>
   <div class="task">
     <div class="task__head">
-      <h2 class="task__title" :class="{ 'task--done': checkbox }">
+      <h2 class="task__title" :class="{ 'task--done': task.done }">
         {{ task.title }}
       </h2>
-      <div class="task__menu"><i class="menu-icon fas fa-ellipsis-h"></i></div>
+      <div class="task__controls">
+        <v-btn icon><v-icon dark> mdi-pencil-outline </v-icon></v-btn>
+        <v-btn icon @click="deleteSelectedTask"
+          ><v-icon dark> mdi-close </v-icon></v-btn
+        >
+      </div>
     </div>
-    <p class="task__body" :class="{ 'task--done': checkbox }">
+    <p class="task__body" :class="{ 'task--done': task.done }">
       {{ task.text }}
     </p>
     <div class="task__footer">
@@ -23,8 +28,10 @@
 
 <script>
 import { mapMutations } from "vuex";
+
 export default {
   name: "Task",
+  components: {},
   props: {
     task: {
       type: Object,
@@ -36,10 +43,17 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["updateTaskStatus"]),
+    ...mapMutations(["updateTaskStatus", "deleteTask"]),
     changeTaskStatus() {
       this.updateTaskStatus(this.task);
     },
+    deleteSelectedTask() {
+      this.deleteTask(this.task);
+    },
+  },
+  computed: {},
+  mounted() {
+    this.checkbox = this.task.done;
   },
 };
 </script>
