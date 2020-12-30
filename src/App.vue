@@ -2,6 +2,8 @@
   <v-app>
     <v-main>
       <v-container>
+        <v-btn class="add-new" @click="openAddFormOverlay">Add</v-btn>
+        <NewTask />
         <div class="tasks" v-for="task in allTasks" :key="task.id">
           <Task :task="task" />
         </div>
@@ -11,17 +13,33 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+
 import Task from "./components/Task";
+import NewTask from "./components/NewTask";
+
 export default {
   name: "App",
 
   components: {
     Task,
+    NewTask,
   },
 
   data: () => ({}),
+  methods: {
+    ...mapMutations(["openAddForm", "updateTasks"]),
+    openAddFormOverlay() {
+      this.openAddForm();
+    },
+    updateTasksFromLocale() {
+      this.updateTasks();
+    },
+  },
   computed: mapGetters(["allTasks"]),
+  mounted() {
+    this.updateTasksFromLocale();
+  },
 };
 </script>
 
