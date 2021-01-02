@@ -1,4 +1,7 @@
 # Yes, this is another TODO app C:
+Еще в процессе...
+
+## Demo: ozzmo-todo.surge.sh
 
 ## Project setup
 ```
