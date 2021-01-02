@@ -11,6 +11,7 @@ export default {
   mutations: {
     /* Get tasks from localestorage on load app */
     updateTasks(state) {
+      state.tasks.length = 0
       let keys = Object.keys(localStorage);
       for (let key of keys) {
         if (!isNaN(key)) {
@@ -37,11 +38,13 @@ export default {
       state.tasks.unshift(newTask)
     },
     deleteTask(state, task) {
-      let ind = state.tasks.find((el, ind) => {
-        if (el.id == task.id) {
-          return ind
+      let ind = null
+      for (let i = 0; i < state.tasks.length; i++) {
+        if (state.tasks[i].id == task.id) {
+          ind = i
+          break
         }
-      })
+      }
       state.tasks.splice(ind, 1)
       localStorage.removeItem(task.id)
     },

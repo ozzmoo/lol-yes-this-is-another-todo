@@ -5,8 +5,10 @@
       Я сделал это. Оно живое, но бесполезное. Половина вообще не работает. Но
       можно посмотреть шо да как с:
     </p>
-    <v-btn class="home__link" dark color="#69665C"
-      ><router-link to="/todo">Get started</router-link></v-btn
+    <router-link to="/todo"
+      ><v-btn class="home__link" dark color="#69665C"
+        >Get started</v-btn
+      ></router-link
     >
     <img src="../assets/Girl.svg" alt="Girl" class="home__img" />
   </div>
@@ -18,7 +20,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .home {
   display: flex;
   flex-direction: column;
@@ -34,7 +36,7 @@ export default {
   }
 }
 
-.home__link a {
+a {
   text-decoration: none;
   color: white;
 }
